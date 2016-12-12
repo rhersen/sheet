@@ -65,7 +65,7 @@ window.getTrains = (branch, direction) => {
         }
     }
 
-    xhr.open('GET', `/json/trains/${direction}?${location[branch]}`, true)
+    xhr.open('GET', `/json/trains?direction=${direction}&locations=${location[branch]}`, true)
     xhr.send()
     document.getElementById('sheet').innerHTML = ''
 }
