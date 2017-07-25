@@ -12,22 +12,24 @@ function htmlTable(announcements, locations) {
     const ts = times(announcements)
 
     return [
-        '<div id="sheet"><table><tr><th>']
-        .concat(
+        '<div id="sheet">']
+        .concat('<div class="tr"><span class="td"></span>',
             map(trainIds,
                 id =>
-                    `<th>${map(find(announcements, {AdvertisedTrainIdent: id}).ToLocation, 'LocationName')}<br>${id}`),
+                    `<span class="td">${map(find(announcements, {AdvertisedTrainIdent: id}).ToLocation, 'LocationName')}<br>${id}</span>`),
+            '</div>',
             map(locations,
                 location =>
                     map(activityTypes,
                         activityType =>
-                        `<tr><td class=${activityType}>${activityType.substr(0, 3)} ${location}` +
-                        map(trainIds,
-                            id =>
-                                `<td class=${activityType}>${formatTimes(ts[location + id + activityType])}`)
-                            .join('\n'))
+                            `<div class="tr"><span class="td ${activityType}">${activityType.substr(0, 3)} ${location}</span>` +
+                            map(trainIds,
+                                id =>
+                                    `<span class="td ${activityType}">${formatTimes(ts[location + id + activityType])}</span>`)
+                                .join('\n') +
+                            '</div>')
                         .join('\n')),
-        ['</div>'])
+            ['</div>'])
         .join('\n')
 }
 

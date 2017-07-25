@@ -7,16 +7,22 @@ table {
     border-collapse: collapse;
 }
 
-td.Ankomst {
+div.tr {
+  display: flex;
+}
+
+span.td {
+    width: 72px;
     border-left: thin solid;
     border-right: thin solid;
+}
+
+span.td.Ankomst {
     border-top: thin solid;
     border-bottom: none;
 }
 
-td.Avgang {
-    border-left: thin solid;
-    border-right: thin solid;
+span.td.Avgang {
     border-top: none;
     border-bottom: thin solid;
 }
@@ -41,8 +47,8 @@ div.east {
     text-align: right;
 }
 
-div.delay0 { color: #0f0; } 
-div.delay1 { color: #fff; } 
-div.delay2 { color: #ff0; } 
+div.delay0 { color: #0f0; }
+div.delay1 { color: #fff; }
+div.delay2 { color: #ff0; }
 div.delay4 { color: #f80; }
 div.delay8 { color: #f00; }

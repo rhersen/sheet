@@ -4,7 +4,7 @@ require('./style.css')
 const htmlTable = require('./htmlTable')
 
 const location = {
-    c: ['Äs', 'Åbe', 'Sst', 'Cst', 'Ke'],
+    c: ['Äs', 'Åbe', 'Sst', 'Sci', 'Sod'],
     n: ['So', 'Udl', 'Hel', 'Sol', 'Hgv', 'Nvk', 'R', 'Upv', 'Arnc'],
     s: ['Rön', 'Tu', 'Tul', 'Flb', 'Hu', 'Sta'],
     e: ['Hnd', 'Skg', 'Tåd', 'Fas'],
