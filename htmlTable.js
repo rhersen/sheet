@@ -13,22 +13,26 @@ function htmlTable(announcements, locations) {
 
     return [
         '<div id="sheet">']
-        .concat('<div class="tr"><span class="td"></span>',
-            map(trainIds,
-                id =>
-                    `<span class="td">${map(find(announcements, {AdvertisedTrainIdent: id}).ToLocation, 'LocationName')}<br>${id}</span>`),
-            '</div>',
+        .concat('<div class="tr">',
+            '<div class="tc">',
+            '<span class="td">train<br />station</span>',
             map(locations,
                 location =>
                     map(activityTypes,
                         activityType =>
-                            `<div class="tr"><span class="td ${activityType}">${activityType.substr(0, 3)} ${location}</span>` +
-                            map(trainIds,
-                                id =>
-                                    `<span class="td ${activityType}">${formatTimes(ts[location + id + activityType])}</span>`)
-                                .join('\n') +
-                            '</div>')
+                            `<span class="td ${activityType}">${activityType.substr(0, 3)} ${location}</span>`)
                         .join('\n')),
+            '</div>',
+            map(trainIds, id => `<div class="tc">` +
+                `<span class="td">${map(find(announcements, {AdvertisedTrainIdent: id}).ToLocation, 'LocationName')}<br>${id}</span>` +
+                map(locations, location =>
+                    map(activityTypes,
+                        activityType =>
+                            `<span class="td ${activityType}">${formatTimes(ts[location + id + activityType])}</span>`)
+                        .join('\n'))
+                    .join('\n') +
+                '</div>'),
+            '</div>',
             ['</div>'])
         .join('\n')
 }

@@ -1,6 +1,6 @@
 module.exports = function (s) {
     if (!s)
-        return ''
+        return '×'
 
     const a = f(s.AdvertisedTimeAtLocation)
     const e = f(s.EstimatedTimeAtLocation)

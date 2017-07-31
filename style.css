@@ -9,12 +9,21 @@ table {
 
 div.tr {
   display: flex;
+  flex-direction: row;
+}
+
+div.tc {
+  display: flex;
+  flex-direction: column;
 }
 
 span.td {
-    width: 72px;
     border-left: thin solid;
     border-right: thin solid;
+}
+
+span.td.station {
+  position: fixed;
 }
 
 span.td.Ankomst {
