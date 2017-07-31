@@ -3,8 +3,8 @@ const expect = require('chai').expect
 const formatTimes = require('../formatTimes')
 
 describe('formatTimes', function () {
-    it('returns empty string given no input', function () {
-        expect(formatTimes()).to.equal('')
+    it('returns cross given no input', function () {
+        expect(formatTimes()).to.equal('×')
     })
 
     it('trims date', function () {
