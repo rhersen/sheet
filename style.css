@@ -12,9 +12,18 @@ div.tr {
   flex-direction: row;
 }
 
+div.tr.tbody {
+  margin-left: 67px;
+}
+
 div.tc {
   display: flex;
   flex-direction: column;
+}
+
+div.tc.station {
+  position: fixed;
+  background: white;
 }
 
 span.td {
@@ -23,7 +32,7 @@ span.td {
 }
 
 span.td.station {
-  position: fixed;
+  width: 67px;
 }
 
 span.td.Ankomst {
