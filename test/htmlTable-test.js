@@ -35,6 +35,6 @@ describe('htmlTable', function () {
             ['Tu', 'Tul']
         )
 
-        expect(actual).to.match(/<span class="td Ankomst">Ank Tu<.span>/)
+        expect(actual).to.match(/<span class="td station Ankomst">Ank Tu<.span>/)
     })
 })
