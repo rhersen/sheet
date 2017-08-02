@@ -11,32 +11,28 @@ function htmlTable(announcements, locations) {
     const activityTypes = ['Ankomst', 'Avgang']
     const ts = times(announcements)
 
-    return [
-        '<div id="sheet">']
-        .concat('<div class="tr stations">',
-            '<div class="tc station">',
+    return ['<div id="sheet">']
+        .concat('<div class="tc station">',
             '<span class="td station">train<br />station</span>',
-            map(locations,
-                location =>
-                    map(activityTypes,
-                        activityType =>
-                            `<span class="td station ${activityType}">${activityType.substr(0, 3)} ${location}</span>`)
-                        .join('\n')),
-            '</div>',
+            map(locations, location =>
+                map(activityTypes, activityType =>
+                    `<span class="td station ${activityType}">${activityType.substr(0, 3)} ${location}</span>`)
+                    .join('\n')),
             '</div>',
             '<div class="tr tbody">',
-            map(trainIds, id => `<div class="tc">` +
-                `<span class="td">${map(find(announcements, {AdvertisedTrainIdent: id}).ToLocation, 'LocationName')}<br>${id}</span>` +
-                map(locations, location =>
-                    map(activityTypes,
-                        activityType =>
+            map(trainIds, id => ['<div class="tc">']
+                .concat('<span class="td">',
+                    `${map(find(announcements, {AdvertisedTrainIdent: id}).ToLocation, 'LocationName')}`,
+                    '<br>',
+                    `${id}`,
+                    '</span>',
+                    map(locations, location =>
+                        map(activityTypes, activityType =>
                             `<span class="td ${activityType}">${formatTimes(ts[location + id + activityType])}</span>`)
-                        .join('\n'))
-                    .join('\n') +
-                '</div>'),
-            '</div>',
-            '</div>',
-            ['</div>'])
+                            .join('\n')),
+                    '</div>')
+                .join('\n')),
+            '</div>')
         .join('\n')
 }
 
