@@ -1,0 +1,50 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "globals": {
+    "require": false,
+    "module": true,
+    "_": true,
+    "describe": false,
+    "expect": false,
+    "jest": false,
+    "it": false,
+    "Buffer": false
+  },
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "plugins": [
+    "prettier"
+  ],
+  "rules": {
+    "prettier/prettier": [
+      "error"
+    ],
+    "complexity": [
+      "error",
+      6
+    ],
+    "eqeqeq": [
+      "error"
+    ],
+    "max-depth": [
+      "error",
+      2
+    ],
+    "max-params": [
+      "error",
+      4
+    ],
+    "max-statements": [
+      "error",
+      23
+    ],
+    "no-shadow": [
+      "error"
+    ],
+    "no-unused-vars": "off"
+  }
+}
