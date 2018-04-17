@@ -36,7 +36,7 @@ function getIndex() {
 }
 
 function span(s) {
-  return '<span><a href="javascript:getTrains' + s + '</a></span>'
+  return '<span><a href="javascript:getTrains' + s + '</a></span> '
 }
 
 const button = root.firstElementChild
