@@ -1,18 +1,15 @@
+const addMinutes = require('date-fns/add_minutes')
+const subMinutes = require('date-fns/sub_minutes')
+const format = require('date-fns/format')
 const difference = require('lodash.difference')
 const filter = require('lodash.filter')
 const find = require('lodash.find')
 const map = require('lodash.map')
-const moment = require('moment')
 const uniq = require('lodash.uniq')
 
 function trains(announcements, now) {
-  const lowerBound = moment(now)
-    .subtract(55, 'minutes')
-    .format()
-  const upperBound = moment(now)
-    .add(55, 'minutes')
-    .format()
-
+  const lowerBound = format(subMinutes(now, 55))
+  const upperBound = format(addMinutes(now, 55))
   return difference(
     ids(announcements),
     ids(filter(announcements, isTooEarly)),

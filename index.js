@@ -1,5 +1,3 @@
-const moment = require('moment')
-
 require('./style.css')
 const htmlTable = require('./htmlTable')
 
@@ -59,9 +57,9 @@ window.getTrains = (branch, direction) => {
         result.TrainAnnouncement,
         locations
       )
-      document.getElementById('update').textContent = moment(
-        result.INFO.LASTMODIFIED['@datetime']
-      ).format('H:mm:ss')
+      document.getElementById('update').textContent = result.INFO.LASTMODIFIED[
+        '@datetime'
+      ].substr(11)
     } else {
       document.getElementById('sheet').innerHTML = this.status
       document.getElementById('update').textContent = this.status

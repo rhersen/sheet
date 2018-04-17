@@ -1,13 +1,12 @@
 const find = require('lodash.find')
 const map = require('lodash.map')
-const moment = require('moment')
 
 const formatTimes = require('./formatTimes')
 const times = require('./times')
 const trains = require('./trains')
 
 function htmlTable(announcements, locations) {
-  const trainIds = trains(announcements, moment())
+  const trainIds = trains(announcements, new Date())
   const activityTypes = ['Ankomst', 'Avgang']
   const ts = times(announcements)
 

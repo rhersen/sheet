@@ -13,9 +13,9 @@
   "author": "",
   "license": "BSD-2-Clause",
   "dependencies": {
+    "date-fns": "^1.29.0",
     "eslint": "^4.19.1",
     "eslint-plugin-prettier": "^2.6.0",
-    "moment": "^2.13.0",
     "prettier": "^1.12.1"
   },
   "devDependencies": {
