@@ -9,7 +9,7 @@ const uniq = require('lodash.uniq')
 
 function trains(announcements, now) {
   const lowerBound = format(subMinutes(now, 55))
-  const upperBound = format(addMinutes(now, 55))
+  const upperBound = format(addMinutes(now, 85))
   return difference(
     ids(announcements),
     ids(filter(announcements, isTooEarly)),

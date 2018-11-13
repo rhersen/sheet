@@ -70,7 +70,7 @@ window.getTrains = (branch, direction) => {
     'GET',
     `/json/trains?direction=${direction}&locations=${
       location[branch]
-    }&since=1:00&until=1:00`,
+    }&since=1:00&until=1:30`,
     true
   )
   xhr.send()
