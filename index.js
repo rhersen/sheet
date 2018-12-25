@@ -68,11 +68,15 @@ window.getTrains = (branch, direction) => {
 
   xhr.open(
     'GET',
-    `/json/trains?direction=${direction}&locations=${
+    `${apiHost()}/json/trains?direction=${direction}&locations=${
       location[branch]
     }&since=1:00&until=1:30`,
     true
   )
   xhr.send()
   document.getElementById('sheet').innerHTML = ''
+}
+
+function apiHost() {
+  return process.env.NODE_ENV === 'development' ? 'http://localhost:1337' : ''
 }
