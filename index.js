@@ -1,4 +1,3 @@
-require('./style.css')
 const htmlTable = require('./htmlTable')
 
 const location = {
