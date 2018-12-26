@@ -6,7 +6,7 @@ import filter from 'lodash.filter'
 import map from 'lodash.map'
 import uniq from 'lodash.uniq'
 
-function trains(announcements, now) {
+export default (announcements, now) => {
   const lowerBound = format(subMinutes(now, 55))
   const upperBound = format(addMinutes(now, 85))
   return difference(
@@ -49,5 +49,3 @@ function compareTimes(a1, a2) {
   if (time1 > time2) return 1
   return 0
 }
-
-module.exports = trains

@@ -4,7 +4,7 @@ import formatTimes from './formatTimes'
 import times from './times'
 import trains from './trains'
 
-function htmlTable(announcements, locations) {
+export default (announcements, locations) => {
   const trainIds = trains(announcements, new Date())
   const activityTypes = ['Ankomst', 'Avgang']
   const ts = times(announcements)
@@ -50,5 +50,3 @@ function htmlTable(announcements, locations) {
     )
     .join('\n')
 }
-
-module.exports = htmlTable

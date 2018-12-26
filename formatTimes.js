@@ -1,4 +1,4 @@
-module.exports = function(s) {
+export default s => {
   if (!s) return '×'
 
   const a = f(s.AdvertisedTimeAtLocation)
