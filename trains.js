@@ -1,11 +1,10 @@
-const addMinutes = require('date-fns/add_minutes')
-const subMinutes = require('date-fns/sub_minutes')
-const format = require('date-fns/format')
-const difference = require('lodash.difference')
-const filter = require('lodash.filter')
-const find = require('lodash.find')
-const map = require('lodash.map')
-const uniq = require('lodash.uniq')
+import addMinutes from 'date-fns/add_minutes'
+import subMinutes from 'date-fns/sub_minutes'
+import format from 'date-fns/format'
+import difference from 'lodash.difference'
+import filter from 'lodash.filter'
+import map from 'lodash.map'
+import uniq from 'lodash.uniq'
 
 function trains(announcements, now) {
   const lowerBound = format(subMinutes(now, 55))

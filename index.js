@@ -1,4 +1,4 @@
-const htmlTable = require('./htmlTable')
+import htmlTable from './htmlTable'
 
 const location = {
   c: ['Äs', 'Åbe', 'Sst', 'Sci', 'Sod'],

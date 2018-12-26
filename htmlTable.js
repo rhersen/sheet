@@ -1,9 +1,8 @@
-const find = require('lodash.find')
-const map = require('lodash.map')
+import map from 'lodash.map'
 
-const formatTimes = require('./formatTimes')
-const times = require('./times')
-const trains = require('./trains')
+import formatTimes from './formatTimes'
+import times from './times'
+import trains from './trains'
 
 function htmlTable(announcements, locations) {
   const trainIds = trains(announcements, new Date())

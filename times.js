@@ -1,4 +1,4 @@
-const keyby = require('lodash.keyby')
+import keyby from 'lodash.keyby'
 
 module.exports = announcements =>
   keyby(
