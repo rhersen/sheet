@@ -1,6 +1,4 @@
-const expect = require('chai').expect
-
-const trains = require('../trains')
+import trains from '../trains'
 
 describe('trains', function() {
   it('returns list of AdvertisedTrainIdent', function() {
@@ -38,7 +36,7 @@ describe('trains', function() {
         ],
         '2016-09-05T21:25:00'
       )
-    ).to.deep.equal(['2768'])
+    ).toEqual(['2768'])
   })
 
   it('sorts on AdvertisedTimeAtLocation', function() {
@@ -92,7 +90,7 @@ describe('trains', function() {
         ],
         '2016-09-21T06:09:00'
       )
-    ).to.deep.equal(['2305', '2507'])
+    ).toEqual(['2305', '2507'])
   })
 
   it('removes trains with activities an hour before now', function() {
@@ -112,10 +110,10 @@ describe('trains', function() {
         ],
         '2016-09-21T07:00:00'
       )
-    ).to.deep.equal(['2507'])
+    ).toEqual(['2507'])
   })
 
-  it('removes trains with activities an hour after now', function() {
+  it('removes trains with activities 1.5 hours after now', function() {
     expect(
       trains(
         [
@@ -126,12 +124,12 @@ describe('trains', function() {
           },
           {
             ActivityType: 'Avgang',
-            AdvertisedTimeAtLocation: '2016-09-21T06:09:00',
+            AdvertisedTimeAtLocation: '2016-09-21T06:39:00',
             AdvertisedTrainIdent: '2507',
           },
         ],
         '2016-09-21T05:00:00'
       )
-    ).to.deep.equal(['2305'])
+    ).toEqual(['2305'])
   })
 })

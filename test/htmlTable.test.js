@@ -1,6 +1,4 @@
-const expect = require('chai').expect
-
-const htmlTable = require('../htmlTable')
+import htmlTable from '../htmlTable'
 
 describe('htmlTable', function() {
   it('returns object with composite keys', function() {
@@ -40,6 +38,6 @@ describe('htmlTable', function() {
       ['Tu', 'Tul']
     )
 
-    expect(actual).to.match(/<span class="td station Ankomst">Ank Tu<.span>/)
+    expect(actual).toMatch(/<span class="td station Ankomst">Ank Tu<.span>/)
   })
 })

@@ -6,24 +6,25 @@
   "scripts": {
     "start": "parcel index.html",
     "build": "parcel build --public-url '.' index.html",
-    "test": "mocha"
+    "test": "jest"
   },
   "author": "",
   "license": "BSD-2-Clause",
   "dependencies": {
     "date-fns": "^1.29.0",
-    "eslint": "^4.19.1",
-    "eslint-plugin-prettier": "^2.6.0",
     "lodash.difference": "^4.5.0",
     "lodash.filter": "^4.6.0",
+    "lodash.find": "^4.6.0",
     "lodash.keyby": "^4.6.0",
     "lodash.map": "^4.6.0",
-    "lodash.uniq": "^4.5.0",
-    "prettier": "^1.12.1"
+    "lodash.uniq": "^4.5.0"
   },
   "devDependencies": {
-    "chai": "3.x",
-    "mocha": "2.x",
-    "parcel-bundler": "^1.11.0"
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
+    "eslint": "^5.11.1",
+    "eslint-plugin-prettier": "^3.0.1",
+    "jest": "^23.6.0",
+    "parcel-bundler": "^1.11.0",
+    "prettier": "^1.15.3"
   }
 }

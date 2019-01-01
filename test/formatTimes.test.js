@@ -1,25 +1,23 @@
-const expect = require('chai').expect
-
-const formatTimes = require('../formatTimes')
+import formatTimes from '../formatTimes'
 
 describe('formatTimes', function() {
   it('returns cross given no input', function() {
-    expect(formatTimes()).to.equal('×')
+    expect(formatTimes()).toBe('×')
   })
 
   it('trims date', function() {
     expect(
       formatTimes({ AdvertisedTimeAtLocation: '2016-09-05T21:22:23' })
-    ).to.equal('21:22:23')
+    ).toBe('21:22:23')
   })
 
   it('trims leading zero from hour', function() {
     expect(
       formatTimes({ AdvertisedTimeAtLocation: '2016-09-05T09:23:00' })
-    ).to.equal('9:23')
+    ).toBe('9:23')
     expect(
       formatTimes({ AdvertisedTimeAtLocation: '2016-09-05T09:23:21' })
-    ).to.equal('9:23:21')
+    ).toBe('9:23:21')
   })
 
   it('shows estimated if no actual exists', function() {
@@ -28,7 +26,7 @@ describe('formatTimes', function() {
         AdvertisedTimeAtLocation: '2016-09-05T21:23:00',
         EstimatedTimeAtLocation: '2016-09-05T21:24:00',
       })
-    ).to.equal('<i>21:24</i>/23')
+    ).toBe('<i>21:24</i>/23')
   })
 
   it('does not show estimated if actual exists', function() {
@@ -37,7 +35,7 @@ describe('formatTimes', function() {
         AdvertisedTimeAtLocation: '2016-09-05T21:23:00',
         TimeAtLocation: '2016-09-05T21:25:00',
       })
-    ).to.equal('<b>21:25</b>/23')
+    ).toBe('<b>21:25</b>/23')
   })
 
   it('cuts off hours correctly even if they are one-digit', function() {
@@ -46,7 +44,7 @@ describe('formatTimes', function() {
         AdvertisedTimeAtLocation: '2016-09-05T09:23:00',
         TimeAtLocation: '2016-09-05T09:25:00',
       })
-    ).to.equal('<b>9:25</b>/23')
+    ).toBe('<b>9:25</b>/23')
   })
 
   it('does not show advertised if actual is same', function() {
@@ -55,7 +53,7 @@ describe('formatTimes', function() {
         AdvertisedTimeAtLocation: '2016-09-05T21:23:00',
         TimeAtLocation: '2016-09-05T21:23:00',
       })
-    ).to.equal('<b>21:23</b>')
+    ).toBe('<b>21:23</b>')
   })
 
   it('does not show advertised if activity type is ankomst', function() {
@@ -65,7 +63,7 @@ describe('formatTimes', function() {
         AdvertisedTimeAtLocation: '2016-09-05T21:23:00',
         TimeAtLocation: '2016-09-05T21:22:00',
       })
-    ).to.equal('<b>21:22</b>')
+    ).toBe('<b>21:22</b>')
   })
 
   it('shows advertised if activity type is ankomst', function() {
@@ -75,6 +73,6 @@ describe('formatTimes', function() {
         EstimatedTimeAtLocation: '2016-09-05T21:24:00',
         AdvertisedTimeAtLocation: '2016-09-05T21:23:00',
       })
-    ).to.equal('<i>21:24</i>/23')
+    ).toBe('<i>21:24</i>/23')
   })
 })

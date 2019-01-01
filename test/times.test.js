@@ -1,6 +1,4 @@
-const expect = require('chai').expect
-
-const times = require('../times')
+import times from '../times'
 
 describe('times', function() {
   it('returns object with composite keys', function() {
@@ -37,16 +35,16 @@ describe('times', function() {
       },
     ])
 
-    expect(actual.Tu2772Ankomst.AdvertisedTimeAtLocation).to.equal(
+    expect(actual.Tu2772Ankomst.AdvertisedTimeAtLocation).toBe(
       '2016-09-08T22:18:00'
     )
-    expect(actual.Tu2772Avgang.AdvertisedTimeAtLocation).to.equal(
+    expect(actual.Tu2772Avgang.AdvertisedTimeAtLocation).toBe(
       '2016-09-08T22:18:00'
     )
-    expect(actual.Tul2772Ankomst.AdvertisedTimeAtLocation).to.equal(
+    expect(actual.Tul2772Ankomst.AdvertisedTimeAtLocation).toBe(
       '2016-09-08T22:22:00'
     )
-    expect(actual.Tul2772Avgang.AdvertisedTimeAtLocation).to.equal(
+    expect(actual.Tul2772Avgang.AdvertisedTimeAtLocation).toBe(
       '2016-09-08T22:22:00'
     )
   })

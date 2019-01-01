@@ -3,6 +3,7 @@ import subMinutes from 'date-fns/sub_minutes'
 import format from 'date-fns/format'
 import difference from 'lodash.difference'
 import filter from 'lodash.filter'
+import find from 'lodash.find'
 import map from 'lodash.map'
 import uniq from 'lodash.uniq'
 
