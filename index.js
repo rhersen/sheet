@@ -33,7 +33,7 @@ function getIndex() {
 }
 
 function span(s) {
-  return '<span><a href="javascript:getTrains' + s + '</a></span> '
+  return `<span><a href="javascript:getTrains${s}</a></span> `
 }
 
 const button = root.firstElementChild
@@ -51,7 +51,11 @@ window.getTrains = (branch, direction) => {
         direction === 'n'
           ? location[branch]
           : location[branch].slice().reverse()
-      const result = JSON.parse(this.response).RESPONSE.RESULT[0]
+      const {
+        RESPONSE: {
+          RESULT: [result],
+        },
+      } = JSON.parse(this.response)
       document.getElementById('sheet').outerHTML = htmlTable(
         result.TrainAnnouncement,
         locations

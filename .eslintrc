@@ -20,31 +20,13 @@
     "prettier"
   ],
   "rules": {
-    "prettier/prettier": [
-      "error"
-    ],
-    "complexity": [
-      "error",
-      6
-    ],
-    "eqeqeq": [
-      "error"
-    ],
-    "max-depth": [
-      "error",
-      2
-    ],
-    "max-params": [
-      "error",
-      4
-    ],
-    "max-statements": [
-      "error",
-      23
-    ],
-    "no-shadow": [
-      "error"
-    ],
+    "prettier/prettier": ["error"],
+    "complexity": ["error", 6],
+    "eqeqeq": ["error"],
+    "max-depth": ["error", 2],
+    "max-params": ["error", 4],
+    "max-statements": ["error", 23],
+    "no-shadow": ["error"],
     "no-unused-vars": "off"
   }
 }
