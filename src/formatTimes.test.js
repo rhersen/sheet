@@ -1,17 +1,17 @@
-import formatTimes from '../formatTimes'
+import formatTimes from './formatTimes'
 
-describe('formatTimes', function() {
-  it('returns cross given no input', function() {
+describe('formatTimes', () => {
+  it('returns cross given no input', () => {
     expect(formatTimes()).toBe('×')
   })
 
-  it('trims date', function() {
+  it('trims date', () => {
     expect(
       formatTimes({ AdvertisedTimeAtLocation: '2016-09-05T21:22:23' })
     ).toBe('21:22:23')
   })
 
-  it('trims leading zero from hour', function() {
+  it('trims leading zero from hour', () => {
     expect(
       formatTimes({ AdvertisedTimeAtLocation: '2016-09-05T09:23:00' })
     ).toBe('9:23')
@@ -20,7 +20,7 @@ describe('formatTimes', function() {
     ).toBe('9:23:21')
   })
 
-  it('shows estimated if no actual exists', function() {
+  it('shows estimated if no actual exists', () => {
     expect(
       formatTimes({
         AdvertisedTimeAtLocation: '2016-09-05T21:23:00',
@@ -29,7 +29,7 @@ describe('formatTimes', function() {
     ).toBe('<i>21:24</i>/23')
   })
 
-  it('does not show estimated if actual exists', function() {
+  it('does not show estimated if actual exists', () => {
     expect(
       formatTimes({
         AdvertisedTimeAtLocation: '2016-09-05T21:23:00',
@@ -38,7 +38,7 @@ describe('formatTimes', function() {
     ).toBe('<b>21:25</b>/23')
   })
 
-  it('cuts off hours correctly even if they are one-digit', function() {
+  it('cuts off hours correctly even if they are one-digit', () => {
     expect(
       formatTimes({
         AdvertisedTimeAtLocation: '2016-09-05T09:23:00',
@@ -47,7 +47,7 @@ describe('formatTimes', function() {
     ).toBe('<b>9:25</b>/23')
   })
 
-  it('does not show advertised if actual is same', function() {
+  it('does not show advertised if actual is same', () => {
     expect(
       formatTimes({
         AdvertisedTimeAtLocation: '2016-09-05T21:23:00',
@@ -56,7 +56,7 @@ describe('formatTimes', function() {
     ).toBe('<b>21:23</b>')
   })
 
-  it('does not show advertised if activity type is ankomst', function() {
+  it('does not show advertised if activity type is ankomst', () => {
     expect(
       formatTimes({
         ActivityType: 'Ankomst',
@@ -66,7 +66,7 @@ describe('formatTimes', function() {
     ).toBe('<b>21:22</b>')
   })
 
-  it('shows advertised if activity type is ankomst', function() {
+  it('shows advertised if activity type is ankomst', () => {
     expect(
       formatTimes({
         ActivityType: 'Ankomst',

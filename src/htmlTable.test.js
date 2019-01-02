@@ -1,7 +1,7 @@
-import htmlTable from '../htmlTable'
+import htmlTable from './htmlTable'
 
-describe('htmlTable', function() {
-  it('returns object with composite keys', function() {
+describe('htmlTable', () => {
+  it('returns object with composite keys', () => {
     const actual = htmlTable(
       [
         {

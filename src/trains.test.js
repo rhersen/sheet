@@ -1,7 +1,7 @@
-import trains from '../trains'
+import trains from './trains'
 
-describe('trains', function() {
-  it('returns list of AdvertisedTrainIdent', function() {
+describe('trains', () => {
+  it('returns list of AdvertisedTrainIdent', () => {
     expect(
       trains(
         [
@@ -39,7 +39,7 @@ describe('trains', function() {
     ).toEqual(['2768'])
   })
 
-  it('sorts on AdvertisedTimeAtLocation', function() {
+  it('sorts on AdvertisedTimeAtLocation', () => {
     expect(
       trains(
         [
@@ -93,7 +93,7 @@ describe('trains', function() {
     ).toEqual(['2305', '2507'])
   })
 
-  it('removes trains with activities an hour before now', function() {
+  it('removes trains with activities an hour before now', () => {
     expect(
       trains(
         [
@@ -113,7 +113,7 @@ describe('trains', function() {
     ).toEqual(['2507'])
   })
 
-  it('removes trains with activities 1.5 hours after now', function() {
+  it('removes trains with activities 1.5 hours after now', () => {
     expect(
       trains(
         [

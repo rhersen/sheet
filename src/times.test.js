@@ -1,7 +1,7 @@
-import times from '../times'
+import times from './times'
 
-describe('times', function() {
-  it('returns object with composite keys', function() {
+describe('times', () => {
+  it('returns object with composite keys', () => {
     const actual = times([
       {
         ActivityType: 'Ankomst',
