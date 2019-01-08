@@ -1,20 +1,20 @@
-import htmlTable from './htmlTable'
+import htmlTable from "./htmlTable"
 
 const location = {
-  c: ['Äs', 'Åbe', 'Sst', 'Sci', 'Sod'],
-  n: ['So', 'Udl', 'Hel', 'Sol', 'Hgv', 'Nvk', 'R', 'Upv', 'Arnc'],
-  s: ['Rön', 'Tu', 'Tul', 'Flb', 'Hu', 'Sta'],
-  e: ['Hnd', 'Skg', 'Tåd', 'Fas'],
-  w: ['Sub', 'Spå', 'Bkb', 'Jkb'],
+  c: ["Äs", "Åbe", "Sst", "Sci", "Sod"],
+  n: ["So", "Udl", "Hel", "Sol", "Hgv", "Nvk", "R", "Upv", "Arnc"],
+  s: ["Rön", "Tu", "Tul", "Flb", "Hu", "Sta"],
+  e: ["Hnd", "Skg", "Tåd", "Fas"],
+  w: ["Sub", "Spå", "Bkb", "Jkb"],
 }
 
-const root = document.getElementById('root')
+const root = document.getElementById("root")
 root.insertAdjacentHTML(
-  'afterbegin',
+  "afterbegin",
   '<button id="update">result.INFO</button>'
 )
-root.insertAdjacentHTML('beforeend', getIndex())
-root.insertAdjacentHTML('beforeend', '<div id="sheet">the sheet</div>')
+root.insertAdjacentHTML("beforeend", getIndex())
+root.insertAdjacentHTML("beforeend", '<div id="sheet">the sheet</div>')
 
 function getIndex() {
   let s = '<div id="index">'
@@ -28,7 +28,7 @@ function getIndex() {
   s += span("('s','s')\">Huddinge söderut")
   s += span("('e','n')\">Haninge norrut")
   s += span("('e','s')\">Haninge söderut")
-  s += '</div>'
+  s += "</div>"
   return s
 }
 
@@ -40,7 +40,7 @@ const button = root.firstElementChild
 button.onclick = getCurrent
 
 function getCurrent() {
-  document.getElementById('sheet').innerHTML = ''
+  document.getElementById("sheet").innerHTML = ""
 }
 
 window.getTrains = (branch, direction) => {
@@ -48,7 +48,7 @@ window.getTrains = (branch, direction) => {
   xhr.onload = function() {
     if (this.status >= 200 && this.status < 400) {
       const locations =
-        direction === 'n'
+        direction === "n"
           ? location[branch]
           : location[branch].slice().reverse()
       const {
@@ -56,30 +56,30 @@ window.getTrains = (branch, direction) => {
           RESULT: [result],
         },
       } = JSON.parse(this.response)
-      document.getElementById('sheet').outerHTML = htmlTable(
+      document.getElementById("sheet").outerHTML = htmlTable(
         result.TrainAnnouncement,
         locations
       )
-      document.getElementById('update').textContent = result.INFO.LASTMODIFIED[
-        '@datetime'
+      document.getElementById("update").textContent = result.INFO.LASTMODIFIED[
+        "@datetime"
       ].substr(11)
     } else {
-      document.getElementById('sheet').innerHTML = this.status
-      document.getElementById('update').textContent = this.status
+      document.getElementById("sheet").innerHTML = this.status
+      document.getElementById("update").textContent = this.status
     }
   }
 
   xhr.open(
-    'GET',
+    "GET",
     `${apiHost()}/json/trains?direction=${direction}&locations=${
       location[branch]
     }&since=1:00&until=1:30`,
     true
   )
   xhr.send()
-  document.getElementById('sheet').innerHTML = ''
+  document.getElementById("sheet").innerHTML = ""
 }
 
 function apiHost() {
-  return process.env.NODE_ENV === 'development' ? 'http://localhost:1337' : ''
+  return process.env.NODE_ENV === "development" ? "http://localhost:1337" : ""
 }

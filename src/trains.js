@@ -1,11 +1,11 @@
-import addMinutes from 'date-fns/add_minutes'
-import subMinutes from 'date-fns/sub_minutes'
-import format from 'date-fns/format'
-import difference from 'lodash.difference'
-import filter from 'lodash.filter'
-import find from 'lodash.find'
-import map from 'lodash.map'
-import uniq from 'lodash.uniq'
+import addMinutes from "date-fns/add_minutes"
+import subMinutes from "date-fns/sub_minutes"
+import format from "date-fns/format"
+import difference from "lodash.difference"
+import filter from "lodash.filter"
+import find from "lodash.find"
+import map from "lodash.map"
+import uniq from "lodash.uniq"
 
 export default (announcements, now) => {
   const lowerBound = format(subMinutes(now, 55))
@@ -40,7 +40,7 @@ export default (announcements, now) => {
 }
 
 function ids(announcements) {
-  return uniq(map(announcements, 'AdvertisedTrainIdent'))
+  return uniq(map(announcements, "AdvertisedTrainIdent"))
 }
 
 function compareTimes(a1, a2) {

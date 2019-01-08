@@ -1,4 +1,4 @@
-import keyby from 'lodash.keyby'
+import keyby from "lodash.keyby"
 
 export default announcements =>
   keyby(

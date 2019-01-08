@@ -1,12 +1,12 @@
-import map from 'lodash.map'
+import map from "lodash.map"
 
-import formatTimes from './formatTimes'
-import times from './times'
-import trains from './trains'
+import formatTimes from "./formatTimes"
+import times from "./times"
+import trains from "./trains"
 
 export default (announcements, locations) => {
   const trainIds = trains(announcements, new Date())
-  const activityTypes = ['Ankomst', 'Avgang']
+  const activityTypes = ["Ankomst", "Avgang"]
   const ts = times(announcements)
 
   return ['<div id="sheet">']
@@ -18,9 +18,9 @@ export default (announcements, locations) => {
           activityTypes,
           t =>
             `<span class="td station ${t}">${t.substr(0, 3)} ${location}</span>`
-        ).join('\n')
+        ).join("\n")
       ),
-      '</div>',
+      "</div>",
       '<div class="tr tbody">',
       map(trainIds, id =>
         ['<div class="tc">']
@@ -28,11 +28,11 @@ export default (announcements, locations) => {
             '<span class="td">',
             `${map(
               find(announcements, { AdvertisedTrainIdent: id }).ToLocation,
-              'LocationName'
+              "LocationName"
             )}`,
-            '<br>',
+            "<br>",
             `${id}`,
-            '</span>',
+            "</span>",
             map(locations, location =>
               map(
                 activityTypes,
@@ -40,13 +40,13 @@ export default (announcements, locations) => {
                   `<span class="td ${activityType}">${formatTimes(
                     ts[location + id + activityType]
                   )}</span>`
-              ).join('\n')
+              ).join("\n")
             ),
-            '</div>'
+            "</div>"
           )
-          .join('\n')
+          .join("\n")
       ),
-      '</div>'
+      "</div>"
     )
-    .join('\n')
+    .join("\n")
 }
