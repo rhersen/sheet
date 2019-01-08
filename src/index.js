@@ -43,41 +43,28 @@ function getCurrent() {
   document.getElementById("sheet").innerHTML = ""
 }
 
-window.getTrains = (branch, direction) => {
-  const xhr = new XMLHttpRequest()
-  xhr.onload = function() {
-    if (this.status >= 200 && this.status < 400) {
-      const locations =
-        direction === "n"
-          ? location[branch]
-          : location[branch].slice().reverse()
-      const {
-        RESPONSE: {
-          RESULT: [result],
-        },
-      } = JSON.parse(this.response)
-      document.getElementById("sheet").outerHTML = htmlTable(
-        result.TrainAnnouncement,
-        locations
-      )
-      document.getElementById("update").textContent = result.INFO.LASTMODIFIED[
-        "@datetime"
-      ].substr(11)
-    } else {
-      document.getElementById("sheet").innerHTML = this.status
-      document.getElementById("update").textContent = this.status
-    }
-  }
+window.getTrains = async (branch, direction) => {
+  document.getElementById("sheet").innerHTML = ""
 
-  xhr.open(
-    "GET",
+  const response = await fetch(
     `${apiHost()}/json/trains?direction=${direction}&locations=${
       location[branch]
-    }&since=1:00&until=1:30`,
-    true
+    }&since=1:00&until=1:30`
   )
-  xhr.send()
-  document.getElementById("sheet").innerHTML = ""
+
+  const {
+    RESPONSE: {
+      RESULT: [result],
+    },
+  } = await response.json()
+
+  document.getElementById("sheet").outerHTML = htmlTable(
+    result.TrainAnnouncement,
+    direction === "n" ? location[branch] : location[branch].slice().reverse()
+  )
+  document.getElementById("update").textContent = result.INFO.LASTMODIFIED[
+    "@datetime"
+  ].substr(11)
 }
 
 function apiHost() {
