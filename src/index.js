@@ -1,4 +1,8 @@
-import htmlTable from "./htmlTable"
+import { h, app } from "hyperapp"
+import map from "lodash.map"
+import find from "lodash.find"
+import trains from "./trains"
+import times from "./times"
 
 const location = {
   c: ["Äs", "Åbe", "Sst", "Sci", "Sod"],
@@ -8,65 +12,193 @@ const location = {
   w: ["Sub", "Spå", "Bkb", "Jkb"],
 }
 
-const root = document.getElementById("root")
-root.insertAdjacentHTML(
-  "afterbegin",
-  '<button id="update">result.INFO</button>'
-)
-root.insertAdjacentHTML("beforeend", getIndex())
-root.insertAdjacentHTML("beforeend", '<div id="sheet">the sheet</div>')
+const state = { announcements: [], modified: "result.INFO" }
 
-function getIndex() {
-  let s = '<div id="index">'
-  s += span("('w','n')\">Järfälla norrut")
-  s += span("('w','s')\">Järfälla söderut")
-  s += span("('n','n')\">Solna norrut")
-  s += span("('n','s')\">Solna söderut")
-  s += span("('c','n')\">Centralen norrut")
-  s += span("('c','s')\">Centralen söderut")
-  s += span("('s','n')\">Huddinge norrut")
-  s += span("('s','s')\">Huddinge söderut")
-  s += span("('e','n')\">Haninge norrut")
-  s += span("('e','s')\">Haninge söderut")
-  s += "</div>"
-  return s
+const actions = {
+  getTrains: ({ branch, direction }) => async ({}, { update }) => {
+    const response = await fetch(
+      `${apiHost()}/json/trains?direction=${direction}&locations=${
+        location[branch]
+      }&since=1:00&until=1:30`
+    )
+
+    const {
+      RESPONSE: {
+        RESULT: [result],
+      },
+    } = await response.json()
+
+    update({ result, branch, direction })
+  },
+  update: ({ result, branch, direction }) => () => {
+    return {
+      modified: result.INFO.LASTMODIFIED["@datetime"].substr(11),
+      announcements: result.TrainAnnouncement,
+      branch,
+      direction,
+    }
+  },
 }
 
-function span(s) {
-  return `<span><a href="javascript:getTrains${s}</a></span> `
-}
-
-const button = root.firstElementChild
-button.onclick = getCurrent
-
-function getCurrent() {
-  document.getElementById("sheet").innerHTML = ""
-}
-
-window.getTrains = async (branch, direction) => {
-  document.getElementById("sheet").innerHTML = ""
-
-  const response = await fetch(
-    `${apiHost()}/json/trains?direction=${direction}&locations=${
-      location[branch]
-    }&since=1:00&until=1:30`
+const view = (
+  { modified, announcements, branch, direction },
+  { getTrains }
+) => {
+  const trainIds = trains(announcements, new Date())
+  const locations =
+    direction !== "n" && branch
+      ? location[branch].slice().reverse()
+      : location[branch]
+  const activityTypes = ["Ankomst", "Avgang"]
+  const ts = times(announcements)
+  return (
+    <div>
+      <button id="update">{modified}</button>
+      <div id="index">
+        <span>
+          <a onclick={() => getTrains({ branch: "w", direction: "n" })}>
+            Järfälla norrut
+          </a>
+        </span>
+        <span>
+          <a onclick={() => getTrains({ branch: "w", direction: "s" })}>
+            Järfälla söderut
+          </a>
+        </span>
+        <span>
+          <a onclick={() => getTrains({ branch: "n", direction: "n" })}>
+            Solna norrut
+          </a>
+        </span>
+        <span>
+          <a onclick={() => getTrains({ branch: "n", direction: "s" })}>
+            Solna söderut
+          </a>
+        </span>
+        <span>
+          <a onclick={() => getTrains({ branch: "c", direction: "n" })}>
+            Centralen norrut
+          </a>
+        </span>
+        <span>
+          <a onclick={() => getTrains({ branch: "c", direction: "s" })}>
+            Centralen söderut
+          </a>
+        </span>
+        <span>
+          <a onclick={() => getTrains({ branch: "s", direction: "n" })}>
+            Huddinge norrut
+          </a>
+        </span>
+        <span>
+          <a onclick={() => getTrains({ branch: "s", direction: "s" })}>
+            Huddinge söderut
+          </a>
+        </span>
+        <span>
+          <a onclick={() => getTrains({ branch: "e", direction: "n" })}>
+            Haninge norrut
+          </a>
+        </span>
+        <span>
+          <a onclick={() => getTrains({ branch: "e", direction: "s" })}>
+            Haninge söderut
+          </a>
+        </span>
+      </div>{" "}
+      <div>{announcements.length} trains</div>
+      <div id="sheet">the sheet</div>
+      <div>
+        <div className="tc station">
+          <span className="td station">
+            train
+            <br />
+            station
+          </span>
+          {map(locations, loc =>
+            map(activityTypes, t => (
+              <span className={`td station ${t}`}>
+                {t.substr(0, 3)} {loc}
+              </span>
+            ))
+          )}
+        </div>
+        <div className="tr tbody">
+          {map(trainIds, id => (
+            <div className="tc">
+              <span className="td">
+                {map(
+                  find(announcements, { AdvertisedTrainIdent: id }).ToLocation,
+                  "LocationName"
+                )}
+                <br />
+                {id}
+              </span>
+              {map(locations, loc =>
+                map(activityTypes, activityType => (
+                  <span class={`td ${activityType}`}>
+                    {formatTimes(ts[loc + id + activityType])}
+                  </span>
+                ))
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
   )
-
-  const {
-    RESPONSE: {
-      RESULT: [result],
-    },
-  } = await response.json()
-
-  document.getElementById("sheet").outerHTML = htmlTable(
-    result.TrainAnnouncement,
-    direction === "n" ? location[branch] : location[branch].slice().reverse()
-  )
-  document.getElementById("update").textContent = result.INFO.LASTMODIFIED[
-    "@datetime"
-  ].substr(11)
 }
+
+app(state, actions, view, document.body)
 
 function apiHost() {
   return process.env.NODE_ENV === "development" ? "http://localhost:1337" : ""
+}
+
+function formatTimes(s) {
+  if (!s) return "×"
+
+  const a = f(s.AdvertisedTimeAtLocation)
+  const e = f(s.EstimatedTimeAtLocation)
+  const t = f(s.TimeAtLocation)
+
+  if (a === t) return <b>{t}</b>
+
+  if (t) {
+    if (s.ActivityType === "Ankomst") return <b>{t}</b>
+
+    return (
+      <span>
+        <b>{t}</b>/{removeHours(a)}
+      </span>
+    )
+  }
+
+  if (e)
+    return (
+      <span>
+        <i>{e}</i>/{removeHours(a)}
+      </span>
+    )
+
+  return a
+
+  function removeHours(time) {
+    return time.substr(time.indexOf(":") + 1)
+  }
+}
+
+function f(s) {
+  let match
+  const regExp = [
+    /T0(\d:\d\d):00/,
+    /T0(\d:\d\d:\d\d)/,
+    /T(\d\d:\d\d):00/,
+    /T(\d\d:\d\d:\d\d)/,
+  ]
+
+  for (let i = 0; i < regExp.length; i++)
+    if ((match = regExp[i].exec(s))) return match[1]
+
+  return ""
 }
