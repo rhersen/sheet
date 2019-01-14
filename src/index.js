@@ -40,114 +40,116 @@ const actions = {
   },
 }
 
-const view = (
-  { modified, announcements, branch, direction },
-  { getTrains }
-) => {
-  const trainIds = trains(announcements, new Date())
-  const locations =
-    direction !== "n" && branch
-      ? location[branch].slice().reverse()
-      : location[branch]
-  const activityTypes = ["Ankomst", "Avgang"]
-  const ts = times(announcements)
-  return (
-    <div>
-      <button id="update">{modified}</button>
-      <div id="index">
-        <span>
-          <a onclick={() => getTrains({ branch: "w", direction: "n" })}>
-            Järfälla norrut
-          </a>
-        </span>
-        <span>
-          <a onclick={() => getTrains({ branch: "w", direction: "s" })}>
-            Järfälla söderut
-          </a>
-        </span>
-        <span>
-          <a onclick={() => getTrains({ branch: "n", direction: "n" })}>
-            Solna norrut
-          </a>
-        </span>
-        <span>
-          <a onclick={() => getTrains({ branch: "n", direction: "s" })}>
-            Solna söderut
-          </a>
-        </span>
-        <span>
-          <a onclick={() => getTrains({ branch: "c", direction: "n" })}>
-            Centralen norrut
-          </a>
-        </span>
-        <span>
-          <a onclick={() => getTrains({ branch: "c", direction: "s" })}>
-            Centralen söderut
-          </a>
-        </span>
-        <span>
-          <a onclick={() => getTrains({ branch: "s", direction: "n" })}>
-            Huddinge norrut
-          </a>
-        </span>
-        <span>
-          <a onclick={() => getTrains({ branch: "s", direction: "s" })}>
-            Huddinge söderut
-          </a>
-        </span>
-        <span>
-          <a onclick={() => getTrains({ branch: "e", direction: "n" })}>
-            Haninge norrut
-          </a>
-        </span>
-        <span>
-          <a onclick={() => getTrains({ branch: "e", direction: "s" })}>
-            Haninge söderut
-          </a>
-        </span>
-      </div>{" "}
-      <div>{announcements.length} trains</div>
-      <div id="sheet">the sheet</div>
-      <div>
-        <div className="tc station">
-          <span className="td station">
-            train
+const Sheet = ({ announcements, locations, activityTypes, ts }) => (
+  <div id="sheet">
+    <div className="tc station">
+      <span className="td station">
+        train
+        <br />
+        station
+      </span>
+      {map(locations, loc =>
+        map(activityTypes, t => (
+          <span className={`td station ${t}`}>
+            {t.substr(0, 3)} {loc}
+          </span>
+        ))
+      )}
+    </div>
+    <div className="tr tbody">
+      {map(trains(announcements, new Date()), id => (
+        <div className="tc">
+          <span className="td">
+            {map(
+              find(announcements, { AdvertisedTrainIdent: id }).ToLocation,
+              "LocationName"
+            )}
             <br />
-            station
+            {id}
           </span>
           {map(locations, loc =>
-            map(activityTypes, t => (
-              <span className={`td station ${t}`}>
-                {t.substr(0, 3)} {loc}
+            map(activityTypes, activityType => (
+              <span className={`td ${activityType}`}>
+                {formatTimes(ts[loc + id + activityType])}
               </span>
             ))
           )}
         </div>
-        <div className="tr tbody">
-          {map(trainIds, id => (
-            <div className="tc">
-              <span className="td">
-                {map(
-                  find(announcements, { AdvertisedTrainIdent: id }).ToLocation,
-                  "LocationName"
-                )}
-                <br />
-                {id}
-              </span>
-              {map(locations, loc =>
-                map(activityTypes, activityType => (
-                  <span class={`td ${activityType}`}>
-                    {formatTimes(ts[loc + id + activityType])}
-                  </span>
-                ))
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
+      ))}
     </div>
-  )
-}
+  </div>
+)
+
+const view = (
+  { modified, announcements, branch, direction },
+  { getTrains }
+) => (
+  <div>
+    <button id="update">{modified}</button>
+    <div id="index">
+      <span>
+        <a onclick={() => getTrains({ branch: "w", direction: "n" })}>
+          Järfälla norrut
+        </a>
+      </span>
+      <span>
+        <a onclick={() => getTrains({ branch: "w", direction: "s" })}>
+          Järfälla söderut
+        </a>
+      </span>
+      <span>
+        <a onclick={() => getTrains({ branch: "n", direction: "n" })}>
+          Solna norrut
+        </a>
+      </span>
+      <span>
+        <a onclick={() => getTrains({ branch: "n", direction: "s" })}>
+          Solna söderut
+        </a>
+      </span>
+      <span>
+        <a onclick={() => getTrains({ branch: "c", direction: "n" })}>
+          Centralen norrut
+        </a>
+      </span>
+      <span>
+        <a onclick={() => getTrains({ branch: "c", direction: "s" })}>
+          Centralen söderut
+        </a>
+      </span>
+      <span>
+        <a onclick={() => getTrains({ branch: "s", direction: "n" })}>
+          Huddinge norrut
+        </a>
+      </span>
+      <span>
+        <a onclick={() => getTrains({ branch: "s", direction: "s" })}>
+          Huddinge söderut
+        </a>
+      </span>
+      <span>
+        <a onclick={() => getTrains({ branch: "e", direction: "n" })}>
+          Haninge norrut
+        </a>
+      </span>
+      <span>
+        <a onclick={() => getTrains({ branch: "e", direction: "s" })}>
+          Haninge söderut
+        </a>
+      </span>
+    </div>
+    <Sheet
+      announcements={announcements}
+      locations={
+        direction !== "n" && branch
+          ? location[branch].slice().reverse()
+          : location[branch]
+      }
+      activityTypes={["Ankomst", "Avgang"]}
+      ts={times(announcements)}
+    />
+  </div>
+)
 
 app(state, actions, view, document.body)
 
