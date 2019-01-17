@@ -6,8 +6,20 @@ import Sheet from "./Sheet"
 const location = {
   c: ["Äs", "Åbe", "Sst", "Sci", "Sod"],
   n: ["So", "Udl", "Hel", "Sol", "Hgv", "Nvk", "R", "Upv", "Arnc"],
-  s: ["Rön", "Tu", "Tul", "Flb", "Hu", "Sta"],
-  e: ["Hnd", "Skg", "Tåd", "Fas"],
+  s: ["Rön", "Gau", "Södy", "Tu", "Uts", "Tul", "Flb", "Hu", "Sta"],
+  e: [
+    "Hfa",
+    "Ts",
+    "Kda",
+    "Vhe",
+    "Jbo",
+    "Hnd",
+    "Vga",
+    "Skg",
+    "Tåd",
+    "Fas",
+    "Hön",
+  ],
   w: ["Sub", "Spå", "Bkb", "Jkb"],
 }
 

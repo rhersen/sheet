@@ -11,6 +11,7 @@ describe("trains", () => {
             AdvertisedTrainIdent: "2768",
             LocationSignature: "Tul",
             ToLocation: [{ LocationName: "Mr", Priority: 1, Order: 0 }],
+            ProductInformation: ["Pendeltåg", "40"],
           },
           {
             ActivityType: "Avgang",
@@ -18,6 +19,7 @@ describe("trains", () => {
             AdvertisedTrainIdent: "2768",
             LocationSignature: "Tul",
             ToLocation: [{ LocationName: "Mr", Priority: 1, Order: 0 }],
+            ProductInformation: ["Pendeltåg", "40"],
           },
           {
             ActivityType: "Ankomst",
@@ -25,6 +27,7 @@ describe("trains", () => {
             AdvertisedTrainIdent: "2768",
             LocationSignature: "Flb",
             ToLocation: [{ LocationName: "Mr", Priority: 1, Order: 0 }],
+            ProductInformation: ["Pendeltåg", "40"],
           },
           {
             ActivityType: "Avgang",
@@ -32,6 +35,7 @@ describe("trains", () => {
             AdvertisedTrainIdent: "2768",
             LocationSignature: "Flb",
             ToLocation: [{ LocationName: "Mr", Priority: 1, Order: 0 }],
+            ProductInformation: ["Pendeltåg", "40"],
           },
         ],
         "2016-09-05T21:25:00"
@@ -49,6 +53,7 @@ describe("trains", () => {
             AdvertisedTrainIdent: "2507",
             LocationSignature: "Spå",
             ToLocation: [{ LocationName: "Vhe", Priority: 1, Order: 0 }],
+            ProductInformation: ["Pendeltåg", "40"],
           },
           {
             ActivityType: "Avgang",
@@ -56,6 +61,7 @@ describe("trains", () => {
             AdvertisedTrainIdent: "2507",
             LocationSignature: "Spå",
             ToLocation: [{ LocationName: "Vhe", Priority: 1, Order: 0 }],
+            ProductInformation: ["Pendeltåg", "40"],
           },
           {
             ActivityType: "Ankomst",
@@ -63,6 +69,7 @@ describe("trains", () => {
             AdvertisedTrainIdent: "2305",
             LocationSignature: "Sub",
             ToLocation: [{ LocationName: "Nyh", Priority: 1, Order: 0 }],
+            ProductInformation: ["Pendeltåg", "40"],
             TimeAtLocation: "2016-09-21T05:53:00",
           },
           {
@@ -71,6 +78,7 @@ describe("trains", () => {
             AdvertisedTrainIdent: "2305",
             LocationSignature: "Sub",
             ToLocation: [{ LocationName: "Nyh", Priority: 1, Order: 0 }],
+            ProductInformation: ["Pendeltåg", "40"],
             TimeAtLocation: "2016-09-21T05:54:00",
           },
           {
@@ -79,6 +87,7 @@ describe("trains", () => {
             AdvertisedTrainIdent: "2507",
             LocationSignature: "Sub",
             ToLocation: [{ LocationName: "Vhe", Priority: 1, Order: 0 }],
+            ProductInformation: ["Pendeltåg", "40"],
           },
           {
             ActivityType: "Avgang",
@@ -101,11 +110,15 @@ describe("trains", () => {
             ActivityType: "Avgang",
             AdvertisedTimeAtLocation: "2016-09-21T05:54:00",
             AdvertisedTrainIdent: "2305",
+            ToLocation: [{ LocationName: "Mr", Priority: 1, Order: 0 }],
+            ProductInformation: ["Pendeltåg", "40"],
           },
           {
             ActivityType: "Avgang",
             AdvertisedTimeAtLocation: "2016-09-21T06:09:00",
             AdvertisedTrainIdent: "2507",
+            ToLocation: [{ LocationName: "Mr", Priority: 1, Order: 0 }],
+            ProductInformation: ["Pendeltåg", "40"],
           },
         ],
         "2016-09-21T07:00:00"
@@ -121,10 +134,57 @@ describe("trains", () => {
             ActivityType: "Avgang",
             AdvertisedTimeAtLocation: "2016-09-21T05:54:00",
             AdvertisedTrainIdent: "2305",
+            ToLocation: [{ LocationName: "Mr", Priority: 1, Order: 0 }],
+            ProductInformation: ["Pendeltåg", "40"],
           },
           {
             ActivityType: "Avgang",
             AdvertisedTimeAtLocation: "2016-09-21T06:39:00",
+            AdvertisedTrainIdent: "2507",
+            ToLocation: [{ LocationName: "Mr", Priority: 1, Order: 0 }],
+            ProductInformation: ["Pendeltåg", "40"],
+          },
+        ],
+        "2016-09-21T05:00:00"
+      )
+    ).toEqual(["2305"])
+  })
+
+  it("removes trains that have wrong ProductInformation", () => {
+    expect(
+      trains(
+        [
+          {
+            ActivityType: "Avgang",
+            AdvertisedTimeAtLocation: "2016-09-21T05:54:00",
+            AdvertisedTrainIdent: "2305",
+            ProductInformation: ["Pendeltåg", "40"],
+          },
+          {
+            ActivityType: "Avgang",
+            AdvertisedTimeAtLocation: "2016-09-21T05:39:00",
+            AdvertisedTrainIdent: "2507",
+            ProductInformation: ["SJ Regional"],
+          },
+        ],
+        "2016-09-21T05:00:00"
+      )
+    ).toEqual(["2305"])
+  })
+
+  it("removes trains that have only non-stops", () => {
+    expect(
+      trains(
+        [
+          {
+            ActivityType: "Avgang",
+            AdvertisedTimeAtLocation: "2016-09-21T05:54:00",
+            AdvertisedTrainIdent: "2305",
+            ProductInformation: ["Pendeltåg", "40"],
+          },
+          {
+            ActivityType: "Avgang",
+            AdvertisedTimeAtLocation: "2016-09-21T05:39:00",
             AdvertisedTrainIdent: "2507",
           },
         ],

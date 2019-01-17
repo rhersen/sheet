@@ -4,7 +4,10 @@ import format from "date-fns/format"
 import difference from "lodash.difference"
 import filter from "lodash.filter"
 import find from "lodash.find"
+import includes from "lodash.includes"
 import map from "lodash.map"
+import reject from "lodash.reject"
+import some from "lodash.some"
 import uniq from "lodash.uniq"
 
 export default (announcements, now) => {
@@ -13,8 +16,18 @@ export default (announcements, now) => {
   return difference(
     ids(announcements),
     ids(filter(announcements, isTooEarly)),
-    ids(filter(announcements, isTooLate))
+    ids(filter(announcements, isTooLate)),
+    ids(reject(announcements, isPendel))
   ).sort(byAdvertisedTime)
+
+  function isPendel(a) {
+    return some(
+      filter(announcements, {
+        AdvertisedTrainIdent: a.AdvertisedTrainIdent,
+      }),
+      announcement => includes(announcement.ProductInformation, "Pendeltåg")
+    )
+  }
 
   function isTooEarly(a) {
     return a.AdvertisedTimeAtLocation < lowerBound
