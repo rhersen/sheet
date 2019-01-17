@@ -12,7 +12,10 @@ export default ({ announcements, locations, activityTypes, ts }) => (
         <div className="tc">
           <span className="td">
             {map(
-              find(announcements, { AdvertisedTrainIdent: id }).ToLocation,
+              find(
+                announcements,
+                a => a.AdvertisedTrainIdent === id && a.ToLocation
+              ).ToLocation,
               "LocationName"
             )}
             <br />
