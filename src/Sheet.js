@@ -2,11 +2,11 @@ import { h } from "hyperapp"
 import map from "lodash.map"
 import trains from "./trains"
 import find from "lodash.find"
-import TableHeader from "./TableHeader"
+import StationsColumn from "./StationsColumn"
 
 export default ({ announcements, locations, activityTypes, ts }) => (
   <div id="sheet">
-    <TableHeader locations={locations} activityTypes={activityTypes} />
+    <StationsColumn locations={locations} activityTypes={activityTypes} />
     <div className="tr tbody">
       {map(trains(announcements, new Date()), id => (
         <div className="tc">
