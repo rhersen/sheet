@@ -5,9 +5,9 @@ import StationsColumn from "./StationsColumn"
 
 import TrainColumns from "./TrainColumns"
 
-export default ({ announcements, locations, ts }) => (
+export default ({ announcements, locations }) => (
   <div id="sheet">
     <StationsColumn locations={locations} />
-    <TrainColumns announcements={announcements} locations={locations} ts={ts} />
+    <TrainColumns announcements={announcements} locations={locations} />
   </div>
 )

@@ -1,8 +1,8 @@
 import { h } from "hyperapp"
 
-export default ({ activityType, ts, loc, id }) => (
+export default ({ activityType, times, loc, id }) => (
   <span className={`td ${activityType}`}>
-    {formatTimes(ts[loc + id + activityType])}
+    {formatTimes(times[loc + id + activityType])}
   </span>
 )
 

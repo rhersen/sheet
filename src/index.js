@@ -1,5 +1,4 @@
 import { h, app } from "hyperapp"
-import times from "./times"
 import Nav from "./Nav"
 import Sheet from "./Sheet"
 
@@ -79,7 +78,6 @@ const view = (
           ? location[branch].slice().reverse()
           : location[branch]
       }
-      ts={times(announcements)}
     />
   </div>
 )
