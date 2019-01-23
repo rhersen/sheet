@@ -1,7 +1,7 @@
 import { h } from "hyperapp"
 import map from "lodash.map"
 
-export default ({ locations, activityTypes }) => (
+export default ({ locations }) => (
   <div className="tc station">
     <span className="td station">
       train
@@ -9,7 +9,7 @@ export default ({ locations, activityTypes }) => (
       station
     </span>
     {map(locations, loc =>
-      map(activityTypes, t => (
+      map(["Ankomst", "Avgang"], t => (
         <span className={`td station ${t}`}>
           {t.substr(0, 3)} {loc}
         </span>

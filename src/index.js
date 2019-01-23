@@ -79,7 +79,6 @@ const view = (
           ? location[branch].slice().reverse()
           : location[branch]
       }
-      activityTypes={["Ankomst", "Avgang"]}
       ts={times(announcements)}
     />
   </div>
