@@ -1,10 +1,30 @@
 import { h } from "hyperapp"
+import difference_in_minutes from "date-fns/difference_in_minutes"
+import cx from "classnames"
 
-export default ({ activityType, times, loc, id }) => (
-  <span className={`td ${activityType}`}>
-    {formatTimes(times[loc + id + activityType])}
-  </span>
-)
+export default ({ activityType, times, loc, id }) => {
+  const time = times[loc + id + activityType]
+
+  return (
+    <span className={cx("td", activityType, delay())}>{formatTimes(time)}</span>
+  )
+
+  function delay() {
+    if (time && time.TimeAtLocation) {
+      const d = difference_in_minutes(
+        time.TimeAtLocation,
+        time.AdvertisedTimeAtLocation
+      )
+
+      if (d < 0) return "ahead"
+      if (d < 1) return "ontime"
+      if (d < 2) return "delay1"
+      if (d < 4) return "delay2"
+      if (d < 8) return "delay4"
+      return "delay8"
+    }
+  }
+}
 
 function formatTimes(s) {
   if (!s) return "×"
