@@ -1,0 +1,86 @@
+body {
+  font-family: Georgia, serif;
+}
+
+table {
+  margin-bottom: 1em;
+  border-collapse: collapse;
+}
+
+div.tr {
+  display: flex;
+  flex-direction: row;
+}
+
+div.tr.tbody {
+  margin-left: 70px;
+}
+
+div.tc {
+  display: flex;
+  flex-direction: column;
+}
+
+div.tc.station {
+  position: fixed;
+  background: white;
+}
+
+span.td {
+  border-left: thin solid;
+  border-right: thin solid;
+
+  &.delay-0 {
+    background-color: palegreen;
+  }
+
+  &.delay-1 {
+    background-color: lightyellow;
+  }
+
+  &.delay-2 {
+    background-color: yellow;
+  }
+
+  &.delay-4 {
+    background-color: orange;
+  }
+
+  &.delay-8 {
+    background-color: red;
+  }
+}
+
+span.td.station {
+  width: 70px;
+}
+
+span.td.Ankomst {
+  border-top: thin solid;
+  border-bottom: none;
+}
+
+span.td.Avgang {
+  border-top: none;
+  border-bottom: thin solid;
+}
+
+caption {
+  font-weight: bold
+}
+
+.actual {
+  font-weight: bold
+}
+
+div.west {
+  text-align: left;
+}
+
+div.central {
+  text-align: center;
+}
+
+div.east {
+  text-align: right;
+}
