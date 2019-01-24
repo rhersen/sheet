@@ -1,5 +1,6 @@
 import { h } from "hyperapp"
 import map from "lodash.map"
+import cx from "classnames"
 
 export default ({ locations }) => (
   <div className="tc station">
@@ -9,9 +10,9 @@ export default ({ locations }) => (
       station
     </span>
     {map(locations, loc =>
-      map(["Ankomst", "Avgang"], t => (
-        <span className={`td station ${t}`}>
-          {t.substr(0, 3)} {loc}
+      map(["Ankomst", "Avgang"], activity => (
+        <span className={cx("td", "station", activity)}>
+          {activity.substr(0, 3)} {loc}
         </span>
       ))
     )}

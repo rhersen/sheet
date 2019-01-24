@@ -12,6 +12,7 @@
   "license": "BSD-2-Clause",
   "browserslist": "chrome > 55, edge > 12, firefox > 52, opera > 42, safari > 10.1",
   "dependencies": {
+    "classnames": "^2.2.6",
     "date-fns": "^1.29.0",
     "lodash.difference": "^4.5.0",
     "lodash.filter": "^4.6.0",
